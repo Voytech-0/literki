@@ -88,7 +88,7 @@ main { flex: 1; overflow-y: auto; }
 .tile.end { box-shadow: inset -4px 0 0 var(--marker); }
 .tile.start.end { box-shadow: inset 4px 0 0 var(--marker), inset -4px 0 0 var(--marker); }
 
-#keyboard { display: flex; flex-direction: column; gap: 6px; padding: 8px 0; }
+#keyboard { display: flex; flex-direction: column; gap: 6px; padding: 8px 0; touch-action: manipulation; }
 #keyboard div { display: flex; gap: 4px; justify-content: center; }
 #keyboard button {
   flex: 1;
