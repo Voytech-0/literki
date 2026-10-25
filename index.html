@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Literki — odgadnij polskie słowo. Gra na wzór Letroso." />
+    <title>Literki</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header>
+      <button id="help-btn" aria-label="Jak grać">?</button>
+      <h1>Literki</h1>
+      <button id="stats-btn" aria-label="Statystyki">▤</button>
+      <button id="theme-btn" aria-label="Zmień motyw">◐</button>
+    </header>
+
+    <nav role="tablist">
+      <button role="tab" data-mode="daily">Dziennie</button>
+      <button role="tab" data-mode="unlimited">Bez limitu</button>
+    </nav>
+
+    <div id="counters">
+      <span id="count-guesses"></span>
+      <span id="count-hints"></span>
+      <button id="hint-btn">Podpowiedź</button>
+    </div>
+
+    <main>
+      <div id="guesses"></div>
+      <div id="input" class="row" aria-live="polite"></div>
+      <p id="toast" role="status"></p>
+      <section id="win" hidden>
+        <p id="win-text"></p>
+        <button id="share-btn">Udostępnij</button>
+        <button id="again-btn">Zagraj ponownie</button>
+      </section>
+    </main>
+
+    <div id="keyboard"></div>
+
+    <footer>
+      Słowa: <a href="https://sjp.pl">SJP.PL</a> (CC BY 4.0) · Na wzór <a href="https://letroso.com">Letroso</a>
+    </footer>
+
+    <dialog id="help">
+      <h2>Jak grać</h2>
+      <p>Odgadnij tajne słowo (4–10 liter). Zgaduj dowolnymi słowami od 2 do 10 liter — prób jest bez limitu.</p>
+      <p>Po każdej próbie kolor i kształt liter podpowiadają:</p>
+      <div class="example" data-guess="tlen" data-secret="telefon"></div>
+      <p><b>T, L, E, N</b> są w słowie w tej kolejności. <b>LE</b> stoją obok siebie. Słowo zaczyna się na <b>T</b> i kończy na <b>N</b> (gruba krawędź).</p>
+      <div class="example" data-guess="fotel" data-secret="telefon"></div>
+      <p><b>TEL</b> jest w słowie razem. <b>F</b> i <b>O</b> są w słowie, ale nie w tej kolejności (kółka).</p>
+      <div class="example" data-guess="telefon" data-secret="telefon"></div>
+      <p>To jest szukane słowo.</p>
+      <p>Podpowiedź najpierw zdradza literę ze słowa, a gdy znasz już wszystkie — wyszarza na klawiaturze litery, których nie ma.</p>
+      <form method="dialog"><button>OK</button></form>
+    </dialog>
+
+    <dialog id="stats">
+      <h2>Statystyki</h2>
+      <div id="stats-body"></div>
+      <form method="dialog"><button>OK</button></form>
+    </dialog>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

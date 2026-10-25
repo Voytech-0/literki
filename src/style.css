@@ -1,0 +1,122 @@
+:root {
+  --bg: #fafaf7;
+  --fg: #1d1d1b;
+  --muted: #8a8a85;
+  --surface: #ebebe6;
+  --order: #2e9e5b;
+  --misplaced: #e0a526;
+  --absent: #c9c9c3;
+  --marker: #1d1d1b;
+  --on-mark: #fff;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #161615;
+    --fg: #ecece8;
+    --muted: #8a8a85;
+    --surface: #2a2a28;
+    --order: #3aa866;
+    --misplaced: #c9921c;
+    --absent: #3d3d3a;
+    --marker: #ecece8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --bg: #161615;
+  --fg: #ecece8;
+  --muted: #8a8a85;
+  --surface: #2a2a28;
+  --order: #3aa866;
+  --misplaced: #c9921c;
+  --absent: #3d3d3a;
+  --marker: #ecece8;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto;
+  max-width: 520px;
+  height: 100dvh;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.4 system-ui, sans-serif;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+
+header { display: flex; align-items: center; gap: 8px; padding: 12px 0 8px; }
+header h1 { flex: 1; margin: 0; font-size: 1.6rem; letter-spacing: 0.05em; text-align: center; }
+header button { width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--surface); }
+
+nav { display: flex; gap: 4px; background: var(--surface); padding: 4px; border-radius: 10px; }
+nav button { flex: 1; border: 0; padding: 6px; border-radius: 7px; background: none; }
+nav button[aria-selected='true'] { background: var(--bg); font-weight: 600; }
+
+main { flex: 1; overflow-y: auto; }
+#counters { display: flex; align-items: center; gap: 12px; margin: 12px 0; color: var(--muted); font-size: 0.9rem; }
+#hint-btn { margin-left: auto; border: 1px solid var(--muted); background: none; border-radius: 8px; padding: 4px 10px; }
+#hint-btn:disabled { opacity: 0.4; cursor: default; }
+#toast { min-height: 1.4em; margin: 6px 0; text-align: center; font-weight: 600; }
+#win { text-align: center; }
+#win button { margin: 4px; padding: 8px 16px; border: 0; border-radius: 8px; background: var(--order); color: var(--on-mark); }
+#guesses { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+
+.row { display: flex; justify-content: center; gap: 4px; }
+.tile {
+  width: 2.3rem;
+  height: 2.3rem;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--surface);
+}
+.tile.empty { opacity: 0.5; }
+.tile.order { background: var(--order); color: var(--on-mark); }
+.tile.misplaced { background: var(--misplaced); color: var(--on-mark); border-radius: 50%; }
+.tile.absent { background: var(--absent); color: var(--muted); }
+/* joined: tile merges into the next one */
+.tile.join { margin-right: -4px; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.tile.join + .tile { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.tile.start { box-shadow: inset 4px 0 0 var(--marker); }
+.tile.end { box-shadow: inset -4px 0 0 var(--marker); }
+.tile.start.end { box-shadow: inset 4px 0 0 var(--marker), inset -4px 0 0 var(--marker); }
+
+#keyboard { display: flex; flex-direction: column; gap: 6px; padding: 8px 0; }
+#keyboard div { display: flex; gap: 4px; justify-content: center; }
+#keyboard button {
+  flex: 1;
+  max-width: 44px;
+  height: 48px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--surface);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+#keyboard button.wide { max-width: 64px; flex: 1.5; }
+#keyboard button.present { background: var(--misplaced); color: var(--on-mark); }
+#keyboard button.absent { background: var(--absent); color: var(--muted); opacity: 0.5; }
+
+footer { padding: 8px 0 16px; text-align: center; font-size: 0.8rem; color: var(--muted); }
+footer a { color: inherit; }
+
+dialog {
+  max-width: min(440px, calc(100vw - 32px));
+  border: 0;
+  border-radius: 14px;
+  background: var(--bg);
+  color: var(--fg);
+}
+dialog::backdrop { background: rgb(0 0 0 / 0.5); }
+dialog .row { justify-content: flex-start; margin: 8px 0; }
+dialog form { text-align: right; }
+dialog form button { border: 0; border-radius: 8px; padding: 6px 16px; background: var(--surface); }
+dl { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; }
+dd { margin: 0; font-weight: 700; text-align: right; }
